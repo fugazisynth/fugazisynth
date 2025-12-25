@@ -66,6 +66,7 @@
             color: #ffffff;
             text-decoration: none;
             transition: color 0.3s;
+            cursor: pointer;
         }
 
         .header-contact a:hover {
@@ -431,6 +432,7 @@
             color: #c41e3a;
             text-decoration: none;
             transition: color 0.3s;
+            cursor: pointer;
         }
 
         footer a:hover {
@@ -470,11 +472,28 @@
     <header>
         <div class="header-container">
             <a href="#" class="logo">
-    <img class="logo-icon" src="generated-image (5)(1).png" alt="Fugazi Logo">
-    <span class="logo-text">FUGAZI</span>
-</a>
+                <svg class="logo-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Circle outline -->
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="white" stroke-width="2.5" transform="skewX(-15)"/>
+                    <!-- Grid pattern inside -->
+                    <g stroke="white" stroke-width="1.5" opacity="0.6" transform="skewX(-15)">
+                        <line x1="25" y1="30" x2="25" y2="70"/>
+                        <line x1="40" y1="25" x2="40" y2="75"/>
+                        <line x1="55" y1="28" x2="55" y2="72"/>
+                        <line x1="70" y1="32" x2="70" y2="68"/>
+                        <line x1="30" y1="50" x2="70" y2="50"/>
+                        <line x1="28" y1="35" x2="72" y2="35"/>
+                        <line x1="32" y1="65" x2="68" y2="65"/>
+                        <!-- Dots -->
+                        <circle cx="40" cy="35" r="2" fill="white"/>
+                        <circle cx="60" cy="50" r="2" fill="white"/>
+                        <circle cx="45" cy="65" r="2" fill="white"/>
+                    </g>
+                </svg>
+                <span class="logo-text">FUGAZI</span>
+            </a>
             <div class="header-contact">
-                📧 <a href="mailto:fugazisynth@gmail.com">fugazisynth@gmail.com</a>
+                📧 <a onclick="openEmail()">fugazisynth@gmail.com</a>
             </div>
         </div>
     </header>
@@ -505,7 +524,7 @@
             </div>
             <div class="stat">
                 <div class="stat-number">$500</div>
-                <div class="stat-label">Starting Price</div>
+                <div class="stat-label">Starting Price (USD)</div>
             </div>
         </div>
     </section>
@@ -584,7 +603,7 @@
             <h2>Simple, Transparent Pricing</h2>
             <div class="price-card">
                 <h3>Standard Dataset</h3>
-                <div class="price-amount">$500</div>
+                <div class="price-amount">$6.50</div>
                 <p>Perfect for QA and development teams</p>
                 <ul class="price-features">
                     <li>Up to 100K rows</li>
@@ -595,40 +614,7 @@
                     <li>Data validation report</li>
                     <li>24-hour turnaround</li>
                 </ul>
-                <!-- 2Checkout Payment Button -->
-<button onclick="open2Checkout()" class="cta-button">Purchase Now</button>
-
-<!-- 2Checkout Script -->
-<script src="https://cdn.2checkout.com/checkout_v2.js"></script>
-
-<script>
-function open2Checkout() {
-    var options = {
-        key: 255841486704
-        email: 'customer@example.com',
-        currency: 'USD',
-        amount: 650,                    
-        productName: 'Synthetic Data Generation',
-        productId: 'fugazi-standard-dataset',
-        itemOptions: {
-            name: 'Standard Dataset - Up to 100K rows'
-        },
-        onSuccess: function(transaction) {
-            // Payment successful
-            alert('Payment successful! Transaction ID: ' + transaction.id);
-            console.log(transaction);
-        },
-        onError: function(error) {
-            // Payment failed
-            alert('Payment failed. Please try again.');
-            console.log(error);
-        }
-    };
-    
-    TwoCheckout.show(options);
-}
-</script>
-
+                <button onclick="open2Checkout()" class="cta-button">Purchase Now</button>
             </div>
             <p style="margin-top: 30px; color: #666; font-size: 14px;">
                 <strong>Volume discounts available:</strong> 3+ projects = 15% off | Monthly = 20% off
@@ -697,19 +683,51 @@ function open2Checkout() {
     <section class="cta-footer">
         <h2>Ready to Get Better Test Data?</h2>
         <p>Join teams generating production-ready synthetic data in minutes</p>
-        <button onclick="open2Checkout()" class="cta-button">Get Started for $500</button>
-
+        <button onclick="open2Checkout()" class="cta-button">Get Started for $6.50</button>
     </section>
 
     <!-- Footer -->
     <footer>
         <p>&copy; 2025 Fugazi. All rights reserved.</p>
-        <p>Contact: <a href="mailto:fugazisynth@gmail.com">fugazisynth@gmail.com</a></p>
+        <p>Contact: <a onclick="openEmail()">fugazisynth@gmail.com</a></p>
         <p style="margin-top: 20px; font-size: 12px;">Synthetic Data Generation | Privacy Safe | GDPR Compliant</p>
     </footer>
 
-    <!-- FAQ Toggle Script -->
+    <!-- 2Checkout Payment Integration -->
+    <script src="https://cdn.2checkout.com/checkout_v2.js"></script>
+
+    <!-- FAQ Toggle Script & 2Checkout Integration -->
     <script>
+        // Email handler - opens default email client
+        function openEmail() {
+            window.location.href = 'mailto:fugazisynth@gmail.com';
+        }
+
+        // 2Checkout payment handler
+        function open2Checkout() {
+            var options = {
+                key: '255841486704',  // Your 2Checkout merchant code
+                currency: 'USD',
+                amount: 650,  
+                productName: 'Fugazi - Standard Dataset',
+                productId: 'fugazi-standard-dataset',
+                itemOptions: {
+                    name: 'Synthetic Data Generation - Up to 100K rows'
+                },
+                onSuccess: function(transaction) {
+                    alert('✓ Payment successful! Your synthetic dataset is being generated.\n\nTransaction ID: ' + transaction.id + '\n\nCheck your email for download link.');
+                    console.log('Transaction successful:', transaction);
+                },
+                onError: function(error) {
+                    alert('⚠ Payment processing issue. Please try again.');
+                    console.log('Payment error:', error);
+                }
+            };
+            
+            TwoCheckout.show(options);
+        }
+
+        // FAQ Toggle functionality
         document.querySelectorAll('.faq-question').forEach(question => {
             question.addEventListener('click', () => {
                 const answer = question.nextElementSibling;
@@ -735,3 +753,4 @@ function open2Checkout() {
     </script>
 </body>
 </html>
+
