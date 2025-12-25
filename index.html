@@ -595,7 +595,40 @@
                     <li>Data validation report</li>
                     <li>24-hour turnaround</li>
                 </ul>
-                <a href="[YOUR_STRIPE_LINK_HERE]" class="cta-button">Purchase Now</a>
+                <!-- 2Checkout Payment Button -->
+<button onclick="open2Checkout()" class="cta-button">Purchase Now</button>
+
+<!-- 2Checkout Script -->
+<script src="https://cdn.2checkout.com/checkout_v2.js"></script>
+
+<script>
+function open2Checkout() {
+    var options = {
+        key: 255841486704
+        email: 'customer@example.com',
+        currency: 'USD',
+        amount: 650,                    
+        productName: 'Synthetic Data Generation',
+        productId: 'fugazi-standard-dataset',
+        itemOptions: {
+            name: 'Standard Dataset - Up to 100K rows'
+        },
+        onSuccess: function(transaction) {
+            // Payment successful
+            alert('Payment successful! Transaction ID: ' + transaction.id);
+            console.log(transaction);
+        },
+        onError: function(error) {
+            // Payment failed
+            alert('Payment failed. Please try again.');
+            console.log(error);
+        }
+    };
+    
+    TwoCheckout.show(options);
+}
+</script>
+
             </div>
             <p style="margin-top: 30px; color: #666; font-size: 14px;">
                 <strong>Volume discounts available:</strong> 3+ projects = 15% off | Monthly = 20% off
@@ -664,7 +697,8 @@
     <section class="cta-footer">
         <h2>Ready to Get Better Test Data?</h2>
         <p>Join teams generating production-ready synthetic data in minutes</p>
-        <a href="[YOUR_STRIPE_LINK_HERE]" class="cta-button">Get Started for $500</a>
+        <button onclick="open2Checkout()" class="cta-button">Get Started for $500</button>
+
     </section>
 
     <!-- Footer -->
